@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+</head>
+<script>
+    var pageSize    = 10;
+    var currentPage = 0;
+    //window.onload=goToPage(currentPage+1);
+
+    function clearTable(table_Id){
+        let table = document.getElementById(table_Id);
+        while(table.rows.length>1){
+            table.deleteRow(table.rows.length-1);
+        }
+    }
+    function goToPage(page) {
+        clearTable("students_table");
+        let xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {
+
+            switch (this.status) {
+                case 200:
+                    let students = JSON.parse(this.responseText);
+                    let table = document.getElementById("students_table");
+                    if(page <= 1){
+                        document.getElementById("prevB").disabled = true;
+                        }
+                    else{document.getElementById("prevB").disabled = false;}
+                    if(students.length%pageSize === 0 && page === Math.trunc(students.length/pageSize)){
+                        document.getElementById("nextB").disabled = true;
+                    }
+                    else if(students.length%pageSize !== 0 && page === Math.trunc(students.length/pageSize)+1){
+                        document.getElementById("nextB").disabled = true;
+                    }else {
+                        document.getElementById("nextB").disabled = false;
+                    }
+
+                    currentPage=page;
+
+                    for (let i = (currentPage - 1) * pageSize; i < currentPage * pageSize; i++) {
+                        let row = table.insertRow(table.rows.length);
+                        let cell = null;
+                        cell = row.insertCell(0);
+                        cell.innerHTML = students[i]['firstName'];
+                        cell = row.insertCell(1);
+                        cell.innerHTML = students[i]['lastName'];
+                    }
+                    break;
+                default:
+                    console.log("Errore: " + this.status + " - " + this.statusText);
+                    break;
+            }
+        }
+        xhttp.open("GET", "http://localhost:8080/login_war_exploded/get-all-students", false);
+        xhttp.send();
+    }
+
+    function getAllStudents() {
+        clearTable("students_table");
+        let xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {
+            switch(this.status) {
+                case 200:
+                    //deserializzo il json arrivato dal server
+                    let students = JSON.parse(this.responseText);
+
+                    //mi 'punto' sulla tabella
+                    let table = document.getElementById("students_table");
+
+                    //scandisco la lista
+                    students.forEach(student => {
+                        //inserisco la riga i-esima
+                        let row = table.insertRow(table.rows.length);
+
+                        let cell = null;
+                        //valorizzo la prima colonna della riga i-esima
+                        cell = row.insertCell(0);
+                        cell.innerHTML = student['firstName'];
+                        //valorizzo la seconda colonna della riga i-esima
+                        cell = row.insertCell(1);
+                        cell.innerHTML = student['lastName'];
+                    });
+                    break;
+                default:
+                    console.log("Errore: " + this.status + " - " + this.statusText);
+                    break;
+            }
+        }
+
+        xhttp.open("GET", "http://localhost:8080/login_war_exploded/get-all-students", false);
+        xhttp.send();
+    }
+</script>
+<body onload=goToPage(currentPage+1)>
+<table border ='1' id="students_table" >
+    <thead>
+    <tr>
+        <th>Cognome</th>
+        <th>Nome</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<button onclick="goToPage(currentPage-1)" id ="prevB">prev</button>
+<button onclick="getAllStudents()">GO</button>
+<button onclick="goToPage(currentPage+1)" id="nextB">next</button>
+</body>
+</html>

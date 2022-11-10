@@ -1,0 +1,36 @@
+header{
+    padding: 25px;
+    text-align: center;
+    font-size: 30px;
+    color: rgba(1, 1, 114, 0.85);
+}
+h1{
+    font-family: Arial;
+    text-shadow: 2px 2px 5px deepskyblue;
+}
+p {
+    font-family: "Lucida Sans";
+}
+body{
+    background-image: url("back.jpg");
+}
+
+table{
+    font-family: "Courier";
+    background-color: #639fd0;
+}
+tr:hover {background-color: #D6EEEE;}
+th{
+    background-color: #3c6e8f;
+}
+button{
+    border-color: #000058;
+    background-color: rgba(1, 1, 161, 0.87);
+    color: whitesmoke;
+    border-radius: 10px;
+    font-family: "Courier New";
+}
+button:hover{
+    background-color: #0101d7;
+}
+button:disabled{opacity: 0.6; cursor: not-allowed;}

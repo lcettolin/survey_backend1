@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+    <script src="functions.js"></script>
+</head>
+
+<body onload=goToPage(currentPage+1)>
+<table border ='1' id="students_table" >
+    <thead>
+    <tr>
+        <th>Cognome</th>
+        <th>Nome</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<button onclick="goToPage(currentPage-1)" id ="prevB">prev</button>
+<button onclick="getAllStudents()">GO</button>
+<button onclick="goToPage(currentPage+1)" id="nextB">next</button>
+</body>
+</html>

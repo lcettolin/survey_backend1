@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="./utilities.js"></script>
+    <script src="callback.js"></script>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <title>CRUD</title>
+</head>
+<header><h1>Welcome to CRUD!</h1></header>
+<body>
+    <p>Please, select an operation:</p>
+    <div id = "divB">
+        <button onclick="goRead()" id ="read">READ</button>
+        <button onclick="goEntry()" id ="create">CREATE</button>
+        <button onclick="goUpdate()" id ="update">UPDATE</button>
+        <button onclick="goDelete()" id ="delete">DELETE</button>
+    </div>
+    <div id ="divInput"></div>
+    <div hidden="hidden" id="table">
+        <br /><br />
+        <table border ='1' id="crudisti" >
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>Name</th>
+                <th>Surname</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div hidden="hidden" id="divButtons">
+        <br/>
+        <button onclick="goToPage(currentPage-1)" id ="prevB">prev</button>
+        <button onclick="goToPage(currentPage+1)" id="nextB">next</button>
+    </div>
+</body>
+</html>

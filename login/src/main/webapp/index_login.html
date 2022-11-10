@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Page Demo</title>
+  <script>
+    function login() {
+      //istanzio l'oggetto per effettuare la richiesta al server
+      let xhttp = new XMLHttpRequest();
+
+      //mi preparo alla chiamata (in POST e sincrona [async = false])
+      xhttp.open("POST", "http://localhost:8080/login_war_exploded/login-servlet", false);
+
+      //inserisco nel protocollo l'informazione per il server affinchè 'capisca' come prelevare i parametri
+      xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+      //gestisco la callback di ritorno dal server
+      xhttp.onload = function() {
+        switch(this.status) {
+          case 200:
+            console.log("Tutto ok: " + this.responseText);
+            window.location = "http://localhost:8080/login_war_exploded/home.html";
+            break;
+          default:
+            alert("Errore: " + this.status);
+            console.log("Errore: " + this.status);
+            //document.getElementById("error")
+            break;
+        }
+      }
+
+      //acquisisco i dati dai campi di input
+      let username = document.getElementById("username").value;
+      let password = document.getElementById("password").value;
+
+      //compongo la stringa dei parametri e la invio (in POST) al server
+      let parameters = "username="+username+"&password="+password;
+      xhttp.send(parameters);
+    }
+  </script>
+</head>
+<body>
+
+<input type="text" id="username"  /> <br>
+<input type="password" id="password"/> <br>
+<button onclick="login()">LOGIN</button>
+
+</body>
+</html>
